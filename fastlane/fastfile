@@ -1,0 +1,20 @@
+require_relative 'actions/xctestrun'
+require_relative 'xcode8-xctestrun'
+Xcode8.runner = self.runner
+
+fastlane_version "2.19.3"
+
+default_platform :ios
+
+desc "Test witout building"
+lane :build_for_testing do
+  xctestrun(xcodebuild_action: 'build-for-testing', scheme: "XCTestRun", workspace: "XCTestRun.xcworkspace", destination: "platform=iOS Simulator,name=iPhone 7,OS=10.2")
+end
+
+lane :unittest do
+  xctestrun(xcodebuild_action: 'test-without-building', scheme: "unittest", workspace: "XCTestRun.xcworkspace", destination: "platform=iOS Simulator,name=iPhone 7,OS=10.2")
+end
+
+lane :uitest do
+  xctestrun(xcodebuild_action: 'test-without-building', scheme: "uitest", workspace: "XCTestRun.xcworkspace", destination: "platform=iOS Simulator,name=iPhone 7,OS=10.2")
+end
